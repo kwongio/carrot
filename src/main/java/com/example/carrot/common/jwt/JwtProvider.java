@@ -1,10 +1,10 @@
-package com.example.be_kwangwoon.global.common.jwt;
+package com.example.carrot.common.jwt;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.auth0.jwt.exceptions.JWTVerificationException;
 import com.auth0.jwt.interfaces.DecodedJWT;
-import com.example.be_kwangwoon.domain.user.domain.User;
+import com.example.carrot.domain.user.domain.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 

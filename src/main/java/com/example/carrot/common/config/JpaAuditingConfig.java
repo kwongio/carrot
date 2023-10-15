@@ -1,4 +1,4 @@
-package com.example.be_kwangwoon.global.common.config;
+package com.example.carrot.common.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
