@@ -1,4 +1,4 @@
-package com.example.be_kwangwoon.global.common.exception;
+package com.example.carrot.common.exception;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;

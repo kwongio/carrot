@@ -1,6 +1,6 @@
-package com.example.be_kwangwoon.global.common.response;
+package com.example.carrot.common.response;
 
-import com.example.be_kwangwoon.global.common.exception.ExceptionCode;
+import com.example.carrot.common.exception.ExceptionCode;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import jakarta.servlet.http.HttpServletResponse;

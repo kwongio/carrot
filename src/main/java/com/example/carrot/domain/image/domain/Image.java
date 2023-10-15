@@ -1,12 +1,14 @@
-package com.example.be_kwangwoon.domain.image.domain;
+package com.example.carrot.domain.image.domain;
 
-import com.example.be_kwangwoon.domain.post.domain.Post;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -18,17 +20,19 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id")
     private Long id;
+    private String image;//이미지 경로
+    private String title;//이미지 제목
+    private boolean isTemp;//임시 이미지 여부
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    private Post post;
-
-    private String url;
+    @LastModifiedDate
+    private LocalDateTime lastModifiedDate;
 
     @Builder
-    public Image(Long id, Post post, String url) {
+    public Image(Long id, String image, String title, boolean isTemp, LocalDateTime lastModifiedDate) {
         this.id = id;
-        this.post = post;
-        this.url = url;
+        this.image = image;
+        this.title = title;
+        this.isTemp = isTemp;
+        this.lastModifiedDate = lastModifiedDate;
     }
 }

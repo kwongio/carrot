@@ -1,6 +1,6 @@
-package com.example.be_kwangwoon.global.common.jwt;
+package com.example.carrot.common.jwt;
 
-import com.example.be_kwangwoon.domain.user.domain.User;
+import com.example.carrot.domain.user.domain.User;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
