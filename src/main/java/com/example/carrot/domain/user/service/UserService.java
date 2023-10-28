@@ -16,6 +16,15 @@ public class UserService {
     private final UserRepository userRepository;
 
     public User saveUser(User user) {
+        validateDuplicateUser(user);
+
         return userRepository.save(user);
+    }
+
+    private void validateDuplicateUser(User user) {
+        Optional<User> findUser = userRepository.findByUsername(user.getUsername());
+        if(findUser.isPresent()) {
+            throw new IllegalStateException("이미 가입된 회원입니다.");
+        }
     }
 }
