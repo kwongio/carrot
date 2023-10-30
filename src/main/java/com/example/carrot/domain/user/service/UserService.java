@@ -1,30 +1,30 @@
 package com.example.carrot.domain.user.service;
 
-import com.example.carrot.domain.user.domain.User;
 import com.example.carrot.domain.user.repository.UserRepository;
-import jakarta.transaction.Transactional;
+import com.example.carrot.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.authentication.InternalAuthenticationServiceException;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Optional;
-
-@RequiredArgsConstructor
-@Transactional
 @Service
-public class UserService {
+@RequiredArgsConstructor
+public class UserService implements UserDetailsService {
 
     private final UserRepository userRepository;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    public User saveUser(User user) {
-        validateDuplicateUser(user);
-
-        return userRepository.save(user);
+    @Transactional
+    public void signup() {
+        userRepository.save(User.builder().username("test").password(bCryptPasswordEncoder.encode("test")).build());
     }
 
-    private void validateDuplicateUser(User user) {
-        Optional<User> findUser = userRepository.findByUsername(user.getUsername());
-        if(findUser.isPresent()) {
-            throw new IllegalStateException("이미 가입된 회원입니다.");
-        }
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        return userRepository.findByUsername(username).orElseThrow(() -> new InternalAuthenticationServiceException(username));
     }
 }

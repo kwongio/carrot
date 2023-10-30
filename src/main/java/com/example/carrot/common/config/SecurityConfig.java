@@ -1,6 +1,7 @@
 package com.example.carrot.common.config;
 
 
+import com.example.carrot.common.jwt.JwtAuthenticationFilter;
 import com.example.carrot.common.jwt.JwtAuthorizationFilter;
 import com.example.carrot.common.jwt.JwtProvider;
 import com.example.carrot.common.response.SecurityResponse;
@@ -28,6 +29,9 @@ public class SecurityConfig {
         @Override
         public void configure(HttpSecurity http) {
             AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
+            JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager, jwtProvider);
+            jwtAuthenticationFilter.setFilterProcessesUrl("/user/login");
+            http.addFilter(jwtAuthenticationFilter);
             http.addFilter(new JwtAuthorizationFilter(authenticationManager, jwtProvider));
         }
     }
@@ -41,7 +45,6 @@ public class SecurityConfig {
         http.csrf(AbstractHttpConfigurer::disable);
         http.headers(httpSecurityHeadersConfigurer -> httpSecurityHeadersConfigurer.frameOptions(HeadersConfigurer.FrameOptionsConfig::disable));
         http.apply(new CustomSecurityFilterManager(jwtProvider));
-        http.formLogin(httpSecurityFormLoginConfigurer -> httpSecurityFormLoginConfigurer.loginProcessingUrl("/user/login"));
         http.exceptionHandling(configurer -> configurer.authenticationEntryPoint((request, response, accessDeniedException) -> SecurityResponse.unAuthentication(response)));
         http.exceptionHandling(configurer -> configurer.accessDeniedHandler((request, response, accessDeniedException) -> SecurityResponse.forbidden(response)));
         http.authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll());
