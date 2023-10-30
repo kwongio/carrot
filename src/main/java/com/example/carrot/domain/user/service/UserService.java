@@ -1,6 +1,7 @@
 package com.example.carrot.domain.user.service;
 
-
+import com.example.carrot.domain.user.dto.UserRequestDto;
+import com.example.carrot.domain.user.dto.UserResponseDto;
 import com.example.carrot.domain.user.repository.UserRepository;
 import com.example.carrot.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +21,12 @@ public class UserService implements UserDetailsService {
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Transactional
-    public void signup() {
-        userRepository.save(User.builder().username("test").password(bCryptPasswordEncoder.encode("test")).build());
+    public UserResponseDto signup(UserRequestDto requestDto) {
+        if(userRepository.existsByUsername(requestDto.getUsername())) {
+            throw new RuntimeException("이미 가입되어 있는 유저입니다.");
+        }
+        User user = requestDto.toUser(bCryptPasswordEncoder);
+        return UserResponseDto.of(userRepository.save(user));
     }
 
     @Override
