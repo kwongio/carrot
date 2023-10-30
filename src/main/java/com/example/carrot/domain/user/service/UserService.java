@@ -1,6 +1,7 @@
-package com.example.carrot.domain.user.controller;
+package com.example.carrot.domain.user.service;
 
 
+import com.example.carrot.domain.user.repository.UserRepository;
 import com.example.carrot.domain.user.domain.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.InternalAuthenticationServiceException;
@@ -10,8 +11,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.beans.Transient;
 
 @Service
 @RequiredArgsConstructor

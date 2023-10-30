@@ -1,4 +1,4 @@
-package com.example.carrot.domain.user.controller;
+package com.example.carrot.domain.user.repository;
 
 import com.example.carrot.domain.user.domain.User;
 import org.springframework.data.jpa.repository.JpaRepository;
