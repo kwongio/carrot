@@ -20,6 +20,7 @@ public class Image {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "image_id")
     private Long id;
+    private Long userId; // 이미지 소유 유저 ID
     private String image;//이미지 경로
     private String title;//이미지 제목
     private boolean isTemp;//임시 이미지 여부
@@ -28,8 +29,8 @@ public class Image {
     private LocalDateTime lastModifiedDate;
 
     @Builder
-    public Image(Long id, String image, String title, boolean isTemp, LocalDateTime lastModifiedDate) {
-        this.id = id;
+    public Image(Long userId, String image, String title, boolean isTemp, LocalDateTime lastModifiedDate) {
+        this.userId = userId;
         this.image = image;
         this.title = title;
         this.isTemp = isTemp;

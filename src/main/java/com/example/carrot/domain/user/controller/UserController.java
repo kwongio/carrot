@@ -17,8 +17,17 @@ public class UserController {
 
     private final UserService userService;
     @PostMapping("/user/signup")
-    public ResponseEntity<UserResponseDto> signup(@RequestBody UserRequestDto requestDto){
+    public ResponseEntity<UserResponseDto> signup(@RequestBody UserRequestDto requestDto) {
         return ResponseEntity.ok(userService.signup(requestDto));
     }
-    
+
+    @GetMapping("/user/userid")
+    public ResponseEntity<Long> getUserId(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(user.getId());
+    }
+
+    @GetMapping("/user/username")
+    public ResponseEntity<String> getUsername(@AuthenticationPrincipal User user) {
+        return ResponseEntity.ok(user.getUsername());
+    }
 }
